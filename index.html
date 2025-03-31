@@ -1,0 +1,102 @@
+<!DOCTYPE html><html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dowry Calculator 💰</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; background-color: #f9f9f9; overflow-x: hidden; }
+        .container { max-width: 500px; margin: auto; background: white; padding: 20px; border-radius: 10px; box-shadow: 0px 0px 10px #ccc; animation: fadeIn 1.5s ease-in-out; }
+        select, input { width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid #ccc; }
+        button { background: green; color: white; padding: 10px; border: none; cursor: pointer; border-radius: 5px; transition: 0.3s; }
+        button:hover { background: darkgreen; transform: scale(1.05); }
+        #result { margin-top: 20px; font-size: 20px; font-weight: bold; animation: popIn 1s ease-in-out; }
+        .gold-coin { font-size: 30px; animation: bounce 1s infinite; }@keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes popIn {
+        from { opacity: 0; transform: scale(0.8); }
+        to { opacity: 1; transform: scale(1); }
+    }
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+</style>
+
+</head>
+<body>
+    <div class="container">
+        <h2>Dowry Calculator 💰 <span class="gold-coin">💸</span></h2>
+        <label>State:</label>
+        <select id="state">
+            <option value="north">North India</option>
+            <option value="south">South India</option>
+            <option value="west">West India</option>
+            <option value="east">East India</option>
+        </select>
+        <label>Age:</label>
+        <input type="number" id="age" min="18" max="50">
+        <label>Job:</label>
+        <select id="job">
+            <option value="govt">Government Job</option>
+            <option value="private">Private Job</option>
+            <option value="business">Business</option>
+            <option value="unemployed">Unemployed</option>
+        </select>
+        <label>Land Owned (in acres):</label>
+        <input type="number" id="land" min="0">
+        <label>Education Level:</label>
+        <select id="education">
+            <option value="phd">PhD</option>
+            <option value="engineer">Engineer</option>
+            <option value="doctor">Doctor</option>
+            <option value="graduate">Graduate</option>
+            <option value="dropout">Dropout</option>
+        </select>
+        <label>Looks & Personality:</label>
+        <input type="range" id="looks" min="1" max="10">
+        <button onclick="calculateDowry()">Calculate Dowry</button>
+        <div id="result"></div>
+    </div>
+    <script>
+        function calculateDowry() {
+            let state = document.getElementById("state").value;
+            let age = parseInt(document.getElementById("age").value);
+            let job = document.getElementById("job").value;
+            let land = parseFloat(document.getElementById("land").value);
+            let education = document.getElementById("education").value;
+            let looks = parseInt(document.getElementById("looks").value);let dowry = 500000; // Base dowry amount
+
+        if (state === "north") dowry += 200000;
+        if (job === "govt") dowry += 1000000;
+        if (job === "private") dowry += 500000;
+        if (job === "business") dowry += 300000;
+        if (job === "unemployed") dowry -= 200000;
+        if (land > 0) dowry += land * 100000;
+        if (education === "phd") dowry += 500000;
+        if (education === "engineer") dowry += 300000;
+        if (education === "doctor") dowry += 700000;
+        if (education === "graduate") dowry += 100000;
+        if (education === "dropout") dowry -= 200000;
+        if (age > 30) dowry -= (age - 30) * 50000; // Reducing dowry for older age
+        if (looks >= 8) dowry += 200000; // Higher dowry for better looks
+        if (looks <= 3) dowry -= 100000; // Lower dowry for lower looks rating
+
+        if (dowry < 0) dowry = 0;
+
+        let messages = [
+            "Wow! You hit the jackpot! 💰💰",
+            "Nice! Your in-laws will be happy. 😎",
+            "Not bad, but you could work on your looks! 😂",
+            "Bro, you might need to give dowry instead. 😆"
+        ];
+
+        let randomMessage = messages[Math.floor(Math.random() * messages.length)];
+
+        document.getElementById("result").innerHTML = `Your Expected Dowry: ₹${dowry.toLocaleString()} <br><br> ${randomMessage}`;
+    }
+</script>
+
+</body>
+</html>
